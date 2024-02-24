@@ -14,7 +14,7 @@ To implement the `Scribe` RESTful API, the framework of choice was:
 
 To host the `Scribe` API serverlessly on `AWS`, the package of choice was:
 
-* `Mangum` - an adapter for running ASGI applications in AWS Lambda to handle Function URL, API Gateway, ALB, and Lambda@Edge events.
+* `Mangum` - an adapter for running ASGI applications in `AWS Lambda` to handle Function URL, API Gateway, ALB, and Lambda@Edge events.
 
 ## Database implementation
 
@@ -31,3 +31,19 @@ Scribe consists of three microservices:
 ## LLM implementation
 
 For interactions with `LLM`, `LangChain` was used. As an LLM, the `gpt-3.5-turbo` model was chosen.
+
+## Notes for myself
+
+Packages should be compatible with `AWS Lambda`, installation of the wheel for Linux operating systems and function’s 
+instruction set architecture is needed. 
+
+* arm64 package pip installation command: 
+    ```
+    pip install \
+    --platform manylinux2014_aarch64 \
+    --target=package \
+    --implementation cp \
+    --python-version 3.x \
+    --only-binary=:all: --upgrade \
+    <package_name>
+    ```
