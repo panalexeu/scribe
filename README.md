@@ -39,11 +39,5 @@ instruction set architecture is needed.
 
 * arm64 package pip installation command: 
     ```
-    pip install \
-    --platform manylinux2014_aarch64 \
-    --target=package \
-    --implementation cp \
-    --python-version 3.x \
-    --only-binary=:all: --upgrade \
-    <package_name>
+    pip install --platform manylinux2014_aarch64 --target=lambda-packages --implementation cp --python-version 3.10 --only-binary=:all: --upgrade <package_name>
     ```

@@ -1,9 +1,7 @@
 from fastapi import FastAPI
 from mangum import Mangum
 
-import health
-import todo
-
+from .routers import health, todo
 
 app = FastAPI()
 app.include_router(health.router)
