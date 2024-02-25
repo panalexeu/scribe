@@ -1,6 +1,7 @@
 import os
 from abc import ABC, abstractmethod
 
+from pydantic import BaseModel
 from motor.motor_asyncio import AsyncIOMotorClient
 
 
@@ -10,21 +11,21 @@ class Repository(ABC):
     collection = None
 
     @abstractmethod
-    def create(self):
+    async def create(self, item: BaseModel):
         pass
 
     @abstractmethod
-    def read(self):
+    async def read(self):
         pass
 
     @abstractmethod
-    def read_all(self):
+    async def read_all(self):
         pass
 
     @abstractmethod
-    def update(self):
+    async def update(self):
         pass
 
     @abstractmethod
-    def delete(self):
+    async def delete(self):
         pass
