@@ -1,7 +1,30 @@
 import os
+from abc import ABC, abstractmethod
+
+from motor.motor_asyncio import AsyncIOMotorClient
 
 
-class Repository:
+class Repository(ABC):
+    client = AsyncIOMotorClient(os.environ.get('MONGODB_URL'))
+    db = client.get_database('scribe')
+    collection = None
 
-    def __init__(self):
-        self.mongodb_url = os.environ.get('MONGODB_URL')
+    @abstractmethod
+    def create(self):
+        pass
+
+    @abstractmethod
+    def read(self):
+        pass
+
+    @abstractmethod
+    def read_all(self):
+        pass
+
+    @abstractmethod
+    def update(self):
+        pass
+
+    @abstractmethod
+    def delete(self):
+        pass
