@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from mangum import Mangum
 from dotenv import load_dotenv
 
-from routers import health, todo
+from .routers import health, todo
 
 
 @asynccontextmanager
