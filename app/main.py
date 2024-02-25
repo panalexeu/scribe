@@ -3,7 +3,7 @@ from mangum import Mangum
 
 from .routers import health, todo
 
-app = FastAPI()
+app = FastAPI(root_path='/scribe')
 app.include_router(health.router)
 app.include_router(todo.router)
 
