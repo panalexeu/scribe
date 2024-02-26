@@ -1,7 +1,7 @@
 from typing import Annotated
 
 from fastapi import APIRouter, Depends
-from ..mongodb import ToDoRepository, ToDo
+from ..mongodb import ToDoRepository, ToDo, MongoToDo
 
 router = APIRouter(
     prefix='/to-do'
@@ -14,5 +14,5 @@ async def todo_get(repository: Annotated[ToDoRepository, Depends()]):
 
 
 @router.post('/create')
-async def todo_create(todo: ToDo, repository: Annotated[ToDoRepository, Depends()]):
+async def todo_create(todo: ToDo, repository: Annotated[ToDoRepository, Depends()]) -> MongoToDo:
     return await repository.create(todo)

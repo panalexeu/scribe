@@ -1,12 +1,12 @@
 from pymongo.results import InsertOneResult
 
 from .repository import Repository
-from .models import ToDo
+from .models import ToDo, MongoToDo
 
 
 class ToDoRepository(Repository):
 
-    async def create(self, todo: ToDo) -> ToDo:
+    async def create(self, todo: ToDo) -> MongoToDo:
         await self.set_up_connection()  # connection with mongo db set up
 
         new_todo: InsertOneResult = await self.collection.insert_one(
@@ -17,7 +17,7 @@ class ToDoRepository(Repository):
             {"_id": new_todo.inserted_id}
         )
 
-        return ToDo(**created_todo)
+        return MongoToDo(**created_todo)
 
     async def read(self):
         pass
