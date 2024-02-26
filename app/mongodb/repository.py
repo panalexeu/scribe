@@ -50,9 +50,9 @@ class Repository(ABC):
         pass
 
     @abstractmethod
-    async def update(self, item_id: str) -> MongoModel:
+    async def update(self, item_id: str, item: BaseModel) -> MongoModel:
         pass
 
     @abstractmethod
-    async def delete(self, item_id: str) -> MongoModel:
+    async def delete(self, item_id: str):
         pass

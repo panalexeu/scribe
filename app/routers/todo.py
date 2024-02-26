@@ -1,7 +1,7 @@
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, status
-from ..mongodb import ToDoRepository, ToDo, MongoToDo
+from ..mongodb import ToDoRepository, ToDo, MongoToDo, UpdateToDo
 
 router = APIRouter(
     prefix='/to-do'
@@ -27,10 +27,13 @@ async def todo_read_all(repository: Annotated[ToDoRepository, Depends()]) -> lis
 
 
 @router.put('/update/{item_id}')
-async def todo_update(item_id: str, repository: Annotated[ToDoRepository, Depends()]) -> MongoToDo:
-    return await repository.update(item_id)
+async def todo_update(item_id: str, todo: UpdateToDo, repository: Annotated[ToDoRepository, Depends()]) -> MongoToDo:
+    return await repository.update(item_id, todo)
 
 
-@router.delete('/delete/{item_id}')
-async def todo_delete(item_id: str, repository: Annotated[ToDoRepository, Depends()]) -> MongoToDo:
-    return await repository.delete(item_id)
+@router.delete(
+    path='/delete/{item_id}',
+    status_code=status.HTTP_204_NO_CONTENT
+)
+async def todo_delete(item_id: str, repository: Annotated[ToDoRepository, Depends()]):
+    await repository.delete(item_id)
