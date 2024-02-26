@@ -1,9 +1,10 @@
 import os
 from abc import ABC, abstractmethod
 
-from pydantic import BaseModel
 from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo.errors import CollectionInvalid
+
+from .models import MongoModel
 
 
 class Repository(ABC):
@@ -32,11 +33,11 @@ class Repository(ABC):
         collections = await self.db.list_collection_names()
         dbs = await self.client.list_database_names()
 
-        print('Collections: ' + str(collections))
         print('Databases: ' + str(dbs))
+        print(f'Collections of {self.db.name}: ' + str(collections))
 
     @abstractmethod
-    async def create(self, item: BaseModel):
+    async def create(self, item: MongoModel) -> MongoModel:
         pass
 
     @abstractmethod
@@ -54,4 +55,3 @@ class Repository(ABC):
     @abstractmethod
     async def delete(self):
         pass
-

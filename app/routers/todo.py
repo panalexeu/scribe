@@ -15,5 +15,4 @@ async def todo_get(repository: Annotated[ToDoRepository, Depends()]):
 
 @router.post('/create')
 async def todo_create(todo: ToDo, repository: Annotated[ToDoRepository, Depends()]):
-    response = await repository.create(todo)
-    return {'status': 'ok'}
+    return await repository.create(todo)
