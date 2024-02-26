@@ -42,17 +42,17 @@ class Repository(ABC):
         pass
 
     @abstractmethod
-    async def read(self):
+    async def read(self, item_id: str) -> MongoModel:
         pass
 
     @abstractmethod
-    async def read_all(self):
+    async def read_all(self) -> list[MongoModel]:
         pass
 
     @abstractmethod
-    async def update(self):
+    async def update(self, item_id: str) -> MongoModel:
         pass
 
     @abstractmethod
-    async def delete(self):
+    async def delete(self, item_id: str) -> MongoModel:
         pass

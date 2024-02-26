@@ -1,7 +1,7 @@
 from pymongo.results import InsertOneResult
 
 from .repository import Repository
-from .models import ToDo, MongoToDo
+from .models import ToDo, MongoToDo, MongoModel
 
 
 class ToDoRepository(Repository):
@@ -14,19 +14,25 @@ class ToDoRepository(Repository):
         )
 
         created_todo = await self.collection.find_one(
-            {"_id": new_todo.inserted_id}
+            {'_id': new_todo.inserted_id}
         )
 
         return MongoToDo(**created_todo)
 
-    async def read(self):
-        pass
+    async def read(self, item_id: str) -> MongoToDo:
+        await self.set_up_connection()
 
-    async def read_all(self):
-        pass
+        found_todo = await self.collection.find_one(
+            {'_id': item_id}
+        )
 
-    async def update(self):
-        pass
+        return MongoToDo(**found_todo)
 
-    async def delete(self):
-        pass
+    async def read_all(self) -> list[MongoToDo]:
+        await self.set_up_connection()
+
+    async def update(self, item_id: str) -> MongoToDo:
+        await self.set_up_connection()
+
+    async def delete(self, item_id: str) -> MongoToDo:
+        await self.set_up_connection()
