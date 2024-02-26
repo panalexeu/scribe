@@ -6,10 +6,9 @@ from .models import ToDo
 
 class ToDoRepository(Repository):
 
-    def __init__(self):
-        self.collection = self.db.get_collection('to-do1')
-
     async def create(self, todo: ToDo):
+        await self.set_up_connection('to-do')  # connection with mongo db set up
+
         new_todo: InsertOneResult = await self.collection.insert_one(
             todo.model_dump()
         )
@@ -34,7 +33,3 @@ class ToDoRepository(Repository):
 
     async def delete(self):
         pass
-
-    async def log(self):
-        collections = await self.db.list_collection_names()
-        print('Collections' + collections)
