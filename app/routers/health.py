@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 
+from ..mongodb import ping_server
 
 router = APIRouter(
     prefix='/health'
@@ -8,4 +9,5 @@ router = APIRouter(
 
 @router.get('/get')
 async def health():
-    return {'response': 'healthy'}
+    response = await ping_server()
+    return {'response': response}

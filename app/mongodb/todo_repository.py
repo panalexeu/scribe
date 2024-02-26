@@ -1,4 +1,3 @@
-from pymongo.errors import CollectionInvalid
 from pymongo.results import InsertOneResult
 
 from .repository import Repository
@@ -8,24 +7,15 @@ from .models import ToDo
 class ToDoRepository(Repository):
 
     def __init__(self):
-        pass
-
-    async def get_collection(self):
-        try:
-            await self.db.create_collection('to-do')
-        except CollectionInvalid:
-            pass  # Collection already exists
-
-        return self.db.get_collection('to-do')
+        self.collection = self.db.get_collection('to-do1')
+        self.log()
 
     async def create(self, todo: ToDo):
-        collection = await self.get_collection()
-
-        new_todo: InsertOneResult = await collection.insert_one(
+        new_todo: InsertOneResult = await self.collection.insert_one(
             todo.model_dump()
         )
 
-        created_todo = await collection.find_one(
+        created_todo = await self.collection.find_one(
             {"_id": new_todo.inserted_id}
         )
 
@@ -42,3 +32,6 @@ class ToDoRepository(Repository):
 
     async def delete(self):
         pass
+
+    async def log(self):
+        print(self.db.list_collection_names())
