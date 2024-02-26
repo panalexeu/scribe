@@ -7,7 +7,7 @@ from .models import ToDo
 class ToDoRepository(Repository):
 
     async def create(self, todo: ToDo):
-        await self.set_up_connection('to-do')  # connection with mongo db set up
+        await self.set_up_connection()  # connection with mongo db set up
 
         new_todo: InsertOneResult = await self.collection.insert_one(
             todo.model_dump()
