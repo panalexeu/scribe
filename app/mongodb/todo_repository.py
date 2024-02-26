@@ -1,4 +1,5 @@
 from pymongo.results import InsertOneResult
+from bson import ObjectId
 
 from .repository import Repository
 from .models import ToDo, MongoToDo, MongoModel
@@ -23,7 +24,7 @@ class ToDoRepository(Repository):
         await self.set_up_connection()
 
         found_todo = await self.collection.find_one(
-            {'_id': item_id}
+            {'_id': ObjectId(item_id)}
         )
 
         return MongoToDo(**found_todo)
