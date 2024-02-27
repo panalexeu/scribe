@@ -24,7 +24,13 @@ class Repository(ABC):
 
         # if collection doesn't exist a new one is created
         try:
-            await self.db.create_collection(self.collection_name)
+            await self.db.create_collection(
+                self.collection_name,
+                check_exists=True,
+                capped=True,
+                max=32,
+                size=5000  # in bytes
+            )
         except CollectionInvalid:
             pass
 
