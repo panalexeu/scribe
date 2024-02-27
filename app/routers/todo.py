@@ -40,16 +40,14 @@ async def todo_update(item_id: PyObjectId, todo: UpdateToDo,
 
 
 @router.delete(
-    path='/delete/{item_id}',
-    status_code=status.HTTP_204_NO_CONTENT
+    path='/delete/{item_id}'
 )
 async def todo_delete(item_id: PyObjectId, repository: Annotated[ToDoRepository, Depends()]):
-    await repository.delete(item_id)
+    return await repository.delete(item_id)
 
 
 @router.delete(
-    path='/delete-all',
-    status_code=status.HTTP_204_NO_CONTENT
+    path='/delete-all'
 )
 async def todo_delete_all(repository: Annotated[ToDoRepository, Depends()]):
-    await repository.delete_all()
+    return await repository.delete_all()

@@ -13,3 +13,10 @@ async def read_all_todos(collection_name: str) -> MongoToDoList:
     """Useful to gather all the user's to-dos."""
     repository = ToDoRepository(collection_name)
     return await repository.read_all()
+
+
+@tool(args_schema=ToolInput)
+async def clear_all_todos(collection_name: str):
+    """Useful to clear all todos in collection"""
+    repository = ToDoRepository(collection_name)
+    return await repository.delete_all()
