@@ -11,12 +11,11 @@ class MongoModel(BaseModel):
     id: PyObjectId = Field(alias='_id', default=None)
 
 
-# This model rep
 class ToDo(BaseModel):
     content: str = Field(min_length=1, max_length=96)
     open: bool = True
     creation_date: datetime = Field(default_factory=datetime.today)
-    deadline_date: datetime
+    deadline_date: datetime = None
 
 
 class UpdateToDo(BaseModel):
