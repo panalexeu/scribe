@@ -31,7 +31,7 @@ class ToDoRepository(Repository):
 
         return MongoToDo(**found_todo)
 
-    async def read_all(self) -> list[MongoToDo]:
+    async def read_all(self) -> MongoToDoList:
         await self.set_up_connection()
 
         found_todos = await self.collection.find().to_list(32)

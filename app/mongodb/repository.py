@@ -28,7 +28,7 @@ class Repository(ABC):
                 self.collection_name,
                 check_exists=True,
                 capped=True,
-                max=32,
+                max=16,
                 size=6000  # in bytes
             )
         except CollectionInvalid:

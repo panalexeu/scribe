@@ -1,5 +1,8 @@
 from langchain_openai import ChatOpenAI
-from langchain.agents import AgentExecutor, create_openapi_agent
+from langchain.agents import AgentExecutor, create_openai_functions_agent
+
+from .prompt_template import scribe_prompt
+from .tools import read_all_todos
 
 
 class Scribe:
@@ -9,16 +12,17 @@ class Scribe:
         self.llm = ChatOpenAI(
             model='gpt-3.5-turbo',
         )
-        self.prompt = None
-        self.tools = None
+        self.prompt = scribe_prompt
+        self.tools = [read_all_todos]
 
-        self.agent = (self.llm, self.tools, self.prompt)
+        self.agent = create_openai_functions_agent(self.llm, self.tools, self.prompt)
         self.agent_executor = AgentExecutor(
             agent=self.agent,
             tools=self.tools
         )
 
     async def ask(self, prompt: str, collection_name: str):
-        return self.agent_executor.invoke(
+        # ainvoke allows usage of async code (I guess this applies for tools)
+        return await self.agent_executor.ainvoke(
             input={'collection_name': collection_name, 'input': prompt}
         )

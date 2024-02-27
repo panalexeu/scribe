@@ -15,7 +15,7 @@ class ToDo(BaseModel):
     content: str = Field(min_length=1, max_length=96)
     open: bool = True
     creation_date: datetime = Field(default_factory=datetime.today)
-    deadline_date: datetime = None
+    deadline_date: datetime | None = None
 
 
 class UpdateToDo(BaseModel):
