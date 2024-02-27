@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from mangum import Mangum
 from dotenv import load_dotenv
 
-from .routers import health, todo
+from .routers import health, todo, agent
 
 
 @asynccontextmanager
@@ -13,10 +13,12 @@ async def lifespan(app: FastAPI):
     yield
 
 
-app = FastAPI(root_path='/scribe', lifespan=lifespan)
+app = FastAPI(lifespan=lifespan)
 app.include_router(health.router)
 app.include_router(todo.router)
+app.include_router(agent.router)
 
+app_handler = Mangum(app)
 health_handler = Mangum(health.router)
 todo_handler = Mangum(todo.router)
-app_handler = Mangum(app)
+agent_handler = Mangum(agent.router)
