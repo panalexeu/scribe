@@ -1,7 +1,7 @@
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, status
-from ..mongodb import ToDoRepository, ToDo, MongoToDo, UpdateToDo
+from ..mongodb import ToDoRepository, ToDo, MongoToDo, UpdateToDo, MongoToDoList
 
 router = APIRouter(
     prefix='/to-do'
@@ -22,7 +22,7 @@ async def todo_read(item_id: str, repository: Annotated[ToDoRepository, Depends(
 
 
 @router.get('/read-all')
-async def todo_read_all(repository: Annotated[ToDoRepository, Depends()]) -> list[MongoToDo]:
+async def todo_read_all(repository: Annotated[ToDoRepository, Depends()]) -> MongoToDoList:
     return await repository.read_all()
 
 

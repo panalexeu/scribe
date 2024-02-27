@@ -4,7 +4,7 @@ from bson import ObjectId
 from fastapi import HTTPException
 
 from .repository import Repository
-from .models import ToDo, MongoToDo, UpdateToDo
+from .models import ToDo, MongoToDo, UpdateToDo, MongoToDoList
 
 
 class ToDoRepository(Repository):
@@ -35,7 +35,7 @@ class ToDoRepository(Repository):
         await self.set_up_connection()
 
         found_todos = await self.collection.find().to_list(32)
-        mongo_todos = map(lambda todo: MongoToDo(**todo), found_todos)
+        mongo_todos = MongoToDoList(todos=found_todos)
 
         return mongo_todos
 

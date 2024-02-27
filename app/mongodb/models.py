@@ -11,7 +11,7 @@ class MongoModel(BaseModel):
 
 class ToDo(BaseModel):
     content: str = Field(min_length=1, max_length=96)
-    open: bool
+    open: bool = True
 
 
 class UpdateToDo(BaseModel):
@@ -21,3 +21,7 @@ class UpdateToDo(BaseModel):
 
 class MongoToDo(ToDo, MongoModel):
     pass
+
+
+class MongoToDoList(BaseModel):
+    todos: list[MongoToDo]
