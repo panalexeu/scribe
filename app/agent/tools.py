@@ -9,7 +9,7 @@ class ToolInput(BaseModel):
 
 
 @tool(args_schema=ToolInput)
-async def read_all_todos(collection_name: str) -> MongoToDoList:
+async def read_all_todos(collection_name: str):
     """Useful to gather all the user's to-dos."""
     repository = ToDoRepository(collection_name)
     return await repository.read_all()
