@@ -11,3 +11,8 @@ router = APIRouter(
 async def health():
     response = await ping_server()
     return {'response': response}
+
+
+@router.get('/simple-get')
+async def health_simple_get():
+    return {'response': 'ok'}

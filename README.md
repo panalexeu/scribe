@@ -41,3 +41,5 @@ instruction set architecture is needed.
     ```
     pip install --platform manylinux2014_aarch64 --target=lambda-packages --implementation cp --python-version 3.10 --only-binary=:all: --upgrade <package_name>
     ```
+
+**Always provide in lambda-packages.zip: packages, app package and .env file!!!**

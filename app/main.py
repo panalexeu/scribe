@@ -19,3 +19,4 @@ app.include_router(todo.router)
 
 health_handler = Mangum(health.router)
 todo_handler = Mangum(todo.router)
+app_handler = Mangum(app)

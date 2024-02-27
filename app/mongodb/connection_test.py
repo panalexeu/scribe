@@ -10,4 +10,4 @@ async def ping_server():
         await client.admin.command('ping')
         return "Pinged deployment. Successfully connected to MongoDB!"
     except Exception as e:
-        print(e)
+        return str(e)
