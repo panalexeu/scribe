@@ -65,3 +65,11 @@ class ToDoRepository(Repository):
         if deleted_todo.deleted_count != 1:
             raise HTTPException(status_code=404, detail=f"Student {item_id} not found")
 
+    async def delete_all(self):
+        await self.set_up_connection()
+
+        await self.collection.delete_many({})
+
+
+
+

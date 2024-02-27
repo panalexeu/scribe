@@ -62,3 +62,7 @@ class Repository(ABC):
     @abstractmethod
     async def delete(self, item_id: PyObjectId):
         pass
+
+    @abstractmethod
+    async def delete_all(self):
+        pass

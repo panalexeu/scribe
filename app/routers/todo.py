@@ -34,7 +34,8 @@ async def todo_read_all(repository: Annotated[ToDoRepository, Depends()]) -> Mon
 
 
 @router.put('/update/{item_id}')
-async def todo_update(item_id: PyObjectId, todo: UpdateToDo, repository: Annotated[ToDoRepository, Depends()]) -> MongoToDo:
+async def todo_update(item_id: PyObjectId, todo: UpdateToDo,
+                      repository: Annotated[ToDoRepository, Depends()]) -> MongoToDo:
     return await repository.update(item_id, todo)
 
 
@@ -44,3 +45,11 @@ async def todo_update(item_id: PyObjectId, todo: UpdateToDo, repository: Annotat
 )
 async def todo_delete(item_id: PyObjectId, repository: Annotated[ToDoRepository, Depends()]):
     await repository.delete(item_id)
+
+
+@router.delete(
+    path='/delete-all',
+    status_code=status.HTTP_204_NO_CONTENT
+)
+async def todo_delete_all(repository: Annotated[ToDoRepository, Depends()]):
+    await repository.delete_all()
