@@ -1,12 +1,13 @@
 from typing import Annotated
 
 from pydantic import BaseModel, Field, BeforeValidator
+from .validations import is_valid_obj_id
 
-py_object_id = Annotated[str, BeforeValidator(str)]
+PyObjectId = Annotated[str, BeforeValidator(is_valid_obj_id)]
 
 
 class MongoModel(BaseModel):
-    id: py_object_id = Field(alias='_id', default=None)
+    id: PyObjectId = Field(alias='_id', default=None)
 
 
 class ToDo(BaseModel):

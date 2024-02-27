@@ -5,7 +5,7 @@ from pydantic import BaseModel
 from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo.errors import CollectionInvalid
 
-from .models import MongoModel
+from .models import MongoModel, PyObjectId
 
 
 class Repository(ABC):
@@ -42,7 +42,7 @@ class Repository(ABC):
         pass
 
     @abstractmethod
-    async def read(self, item_id: str) -> MongoModel:
+    async def read(self, item_id: PyObjectId) -> MongoModel:
         pass
 
     @abstractmethod
@@ -50,9 +50,9 @@ class Repository(ABC):
         pass
 
     @abstractmethod
-    async def update(self, item_id: str, item: BaseModel) -> MongoModel:
+    async def update(self, item_id: PyObjectId, item: BaseModel) -> MongoModel:
         pass
 
     @abstractmethod
-    async def delete(self, item_id: str):
+    async def delete(self, item_id: PyObjectId):
         pass
