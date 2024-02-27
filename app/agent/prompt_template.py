@@ -11,7 +11,8 @@ scribe_prompt = ChatPromptTemplate.from_messages(
                     having troubles with task completion.
                     If the user\'s input is not connected with the to-dos managing respond based on your knowledge
                     base.
-                    The collection_name is provided bellow, you must not change it and provide it as input in tool fully as it is.
+                    The collection_name is provided bellow, you must not change it and provide it as input in tool fully
+                    as it is.
                     '''),
         ('system', '{collection_name}'),
         ('user', '{input}'),
