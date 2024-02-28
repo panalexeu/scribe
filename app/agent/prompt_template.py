@@ -20,7 +20,8 @@ scribe_prompt = ChatPromptTemplate.from_messages(
     ]
 )
 
-DESCRIPTION_FIELD = 'In this field collection_name should be provided.'
+DESCRIPTION_FIELD = '''In this field content of to-do should be provided parsed from the user input. Maximum content 
+string size is 96 characters. If the user's content exceeds size in 96 characters, summarize the user's input.'''
 
 CONTENT_FIELD = '''In this field content of to-do should be provided parsed from the user input.'''
 
