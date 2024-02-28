@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from langchain.pydantic_v1 import BaseModel, Field
 from langchain.tools import tool
 
@@ -5,7 +7,8 @@ from .prompt_template import (
     DESCRIPTION_FIELD,
     CONTENT_FIELD,
     OPEN_FIELD,
-    DEADLINE_FIELD
+    DEADLINE_FIELD,
+    ID_FIELD
 )
 from ..mongodb import ToDoRepository, ToDo
 
@@ -20,14 +23,28 @@ class ToDoInput(ToolInput):
     deadline_date: str | None = Field(description=DEADLINE_FIELD)
 
 
+class ToDoIdInput(ToolInput):
+    id: str = Field(description=ID_FIELD)
+
+
 @tool(args_schema=ToolInput)
 async def read_all_todos(collection_name: str):
-    """Useful to gather/provide/list all the user's to-dos."""
+    """Useful to gather/provide/list all the user's to-dos.
+    If the user doesn't mention any format instructions on how he wants to see the returned to-dos,  provide to-dos in
+    the following way without any numeration:
+    * Task: content
+        - Open: open
+        - Creation_date: creation-date (do not specify seconds)
+        - Deadline_date: deadline-date (do not specify seconds)
+    """
     try:
         repository = ToDoRepository(collection_name)
         return await repository.read_all()
     except Exception as e:
         return str(e)
+
+
+
 
 
 @tool(args_schema=ToolInput)
@@ -40,9 +57,20 @@ async def clear_all_todos(collection_name: str):
         return str(e)
 
 
+@tool(args_schema=ToDoIdInput)
+async def delete_todo(collection_name: str, id: str):
+    """Useful to delete a single to-do. Before calling this tool always call read_all_todos tool to get to-dos with
+    their ids. Never change retrieved to-dos ids"""
+    try:
+        repository = ToDoRepository(collection_name)
+        return await repository.delete(id)
+    except Exception as e:
+        return str(e)
+
+
 @tool(args_schema=ToDoInput)
 async def add_todo(collection_name: str, content: str, open: bool, deadline_date: str | None = None):
-    """Useful to add to-dos in collection"""
+    """Useful to add to-dos in collection. Before calling this tool always call get_curr_time tool"""
     try:
         repository = ToDoRepository(collection_name)
         to_do = ToDo(
@@ -53,3 +81,9 @@ async def add_todo(collection_name: str, content: str, open: bool, deadline_date
         return await repository.create(to_do)
     except Exception as e:
         return str(e)
+
+
+@tool
+def get_curr_time():
+    """Useful to retrieve current time and resolve tasks related to time management"""
+    return datetime.today()

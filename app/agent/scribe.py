@@ -5,7 +5,9 @@ from .prompt_template import scribe_prompt
 from .tools import (
     read_all_todos,
     clear_all_todos,
-    add_todo
+    delete_todo,
+    add_todo,
+    get_curr_time,
 )
 
 
@@ -18,7 +20,13 @@ class Scribe:
             temperature=0.1
         )
         self.prompt = scribe_prompt
-        self.tools = [read_all_todos, clear_all_todos, add_todo]
+        self.tools = [
+            read_all_todos,
+            clear_all_todos,
+            add_todo,
+            get_curr_time,
+            delete_todo
+        ]
 
         self.agent = create_openai_functions_agent(self.llm, self.tools, self.prompt)
         self.agent_executor = AgentExecutor(
