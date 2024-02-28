@@ -1,3 +1,5 @@
+import inspect
+import sys
 from datetime import datetime
 
 from langchain.pydantic_v1 import BaseModel, Field
@@ -48,3 +50,8 @@ async def add_todo(collection_name: str, content: str, open: bool, deadline_date
     )
 
     return await repository.create(to_do)
+
+def collect_tools():
+    for name, obj in inspect.getmembers(sys.modules[__name__]):
+        print(name, obj)
+
