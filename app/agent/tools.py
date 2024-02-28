@@ -1,15 +1,13 @@
-from datetime import datetime
-
 from langchain.pydantic_v1 import BaseModel, Field
 from langchain.tools import tool
 
-from ..mongodb import ToDoRepository, ToDo
 from .prompt_template import (
     DESCRIPTION_FIELD,
     CONTENT_FIELD,
     OPEN_FIELD,
     DEADLINE_FIELD
 )
+from ..mongodb import ToDoRepository, ToDo
 
 
 class ToolInput(BaseModel):
@@ -19,7 +17,7 @@ class ToolInput(BaseModel):
 class ToDoInput(ToolInput):
     content: str = Field(description=CONTENT_FIELD)
     open: bool = Field(description=OPEN_FIELD)
-    deadline_date: datetime | None = Field(description=DEADLINE_FIELD)
+    deadline_date: str | None = Field(description=DEADLINE_FIELD)
 
 
 @tool(args_schema=ToolInput)
@@ -43,7 +41,7 @@ async def clear_all_todos(collection_name: str):
 
 
 @tool(args_schema=ToDoInput)
-async def add_todo(collection_name: str, content: str, open: bool, deadline_date: datetime | None):
+async def add_todo(collection_name: str, content: str, open: bool, deadline_date: str | None = None):
     """Useful to add todos in collection"""
     try:
         repository = ToDoRepository(collection_name)

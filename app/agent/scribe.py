@@ -15,6 +15,7 @@ class Scribe:
         # self.collection_name = collection_name
         self.llm = ChatOpenAI(
             model='gpt-3.5-turbo',
+            temperature=0.1
         )
         self.prompt = scribe_prompt
         self.tools = [read_all_todos, clear_all_todos, add_todo]
