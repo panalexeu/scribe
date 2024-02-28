@@ -36,5 +36,4 @@ DEADLINE_FIELD = '''In this field deadline date should be parsed from the user\'
     * September 3rd, 2004 at 6:30 PM => 2004-09-03T18:30:00
     * 03-09-2004 13:45 => 2004-09-03T13:45:00
     * 3rd September, 2004 6:15 PM GMT => 2004-09-03T18:15:00Z
-If the user didn't mention any deadline date or from the user\'s input deadline time is unclear provide "None" in the 
-field.'''
+    * No deadline or deadline is unclear => "None"'''

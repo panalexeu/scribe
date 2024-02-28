@@ -2,7 +2,11 @@ from langchain_openai import ChatOpenAI
 from langchain.agents import AgentExecutor, create_openai_functions_agent
 
 from .prompt_template import scribe_prompt
-from .tools import read_all_todos, clear_all_todos
+from .tools import (
+    read_all_todos,
+    clear_all_todos,
+    add_todo
+)
 
 
 class Scribe:
@@ -13,7 +17,7 @@ class Scribe:
             model='gpt-3.5-turbo',
         )
         self.prompt = scribe_prompt
-        self.tools = [read_all_todos, clear_all_todos]
+        self.tools = [read_all_todos, clear_all_todos, add_todo]
 
         self.agent = create_openai_functions_agent(self.llm, self.tools, self.prompt)
         self.agent_executor = AgentExecutor(

@@ -25,26 +25,33 @@ class ToDoInput(ToolInput):
 @tool(args_schema=ToolInput)
 async def read_all_todos(collection_name: str):
     """Useful to gather all the user's to-dos."""
-    repository = ToDoRepository(collection_name)
-    return await repository.read_all()
+    try:
+        repository = ToDoRepository(collection_name)
+        return await repository.read_all()
+    except Exception as e:
+        return str(e)
 
 
 @tool(args_schema=ToolInput)
 async def clear_all_todos(collection_name: str):
     """Useful to clear all todos in collection"""
-    repository = ToDoRepository(collection_name)
-    return await repository.delete_all()
+    try:
+        repository = ToDoRepository(collection_name)
+        return await repository.delete_all()
+    except Exception as e:
+        return str(e)
 
 
 @tool(args_schema=ToDoInput)
-async def add_todo(collection_name: str, content: str, open: bool, deadline_date: datetime):
+async def add_todo(collection_name: str, content: str, open: bool, deadline_date: datetime | None):
     """Useful to add todos in collection"""
-
-    repository = ToDoRepository(collection_name)
-    to_do = ToDo(
-        content=content,
-        open=open,
-        deadline_date=deadline_date
-    )
-
-    return await repository.create(to_do)
+    try:
+        repository = ToDoRepository(collection_name)
+        to_do = ToDo(
+            content=content,
+            open=open,
+            deadline_date=deadline_date
+        )
+        return await repository.create(to_do)
+    except Exception as e:
+        return str(e)
