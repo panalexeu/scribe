@@ -13,9 +13,8 @@ scribe_prompt = ChatPromptTemplate.from_messages(
                    'are having troubles with task completion.'
                    'If the user\'s input is not connected with the to-dos managing respond based on your knowledge'
                    'base.'
-                   'The collection_name is provided bellow, you must not change it, under any circumstances, '
-                   'and provide it as input in tool fully as it is.'),
-        ('system', '{collection_name}'),
+                   'The collection_name is {collection_name}, you must not change it, under any circumstances,'
+                   'and provide it as input in tools fully as it is.'),
         ('user', '{input}'),
         MessagesPlaceholder(variable_name='agent_scratchpad'),
     ]
