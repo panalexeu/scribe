@@ -8,6 +8,7 @@ from .tools import (
     delete_todo,
     add_todo,
     get_curr_time,
+    update_todo
 )
 
 
@@ -25,7 +26,8 @@ class Scribe:
             clear_all_todos,
             add_todo,
             get_curr_time,
-            delete_todo
+            delete_todo,
+            update_todo
         ]
 
         self.agent = create_openai_functions_agent(self.llm, self.tools, self.prompt)

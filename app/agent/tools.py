@@ -29,7 +29,7 @@ class ToDoIdInput(ToolInput):
     id: str = Field(description=ID_FIELD)
 
 
-class ToDoInputUpdate(ToolInput):
+class ToDoInputUpdate(ToDoIdInput):
     content: str | None = Field(description=CONTENT_FIELD_UPDATE)
     open: bool | None = Field(description=OPEN_FIELD_UPDATE)
     deadline_date: str | None = Field(description=DEADLINE_FIELD)
@@ -42,8 +42,8 @@ async def read_all_todos(collection_name: str):
     the following way without any numeration:
     * Task: content
         - Open: open
-        - Creation_date: creation-date (do not specify seconds)
-        - Deadline_date: deadline-date (do not specify seconds)
+        - Creation_date: creation-date (specify date and hours only not seconds)
+        - Deadline_date: deadline-date (specify date and hours only not seconds)
     """
     try:
         repository = ToDoRepository(collection_name)
@@ -65,8 +65,8 @@ async def update_todo(
     try:
         repository = ToDoRepository(collection_name)
         return await repository.update(
-            id,
-            UpdateToDo(
+            item_id=id,
+            item=UpdateToDo(
                 content=content,
                 open=open,
                 deadline_date=deadline_date
