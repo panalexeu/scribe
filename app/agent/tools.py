@@ -8,9 +8,11 @@ from .prompt_template import (
     CONTENT_FIELD,
     OPEN_FIELD,
     DEADLINE_FIELD,
-    ID_FIELD
+    ID_FIELD,
+    CONTENT_FIELD_UPDATE,
+    OPEN_FIELD_UPDATE
 )
-from ..mongodb import ToDoRepository, ToDo
+from ..mongodb import ToDoRepository, ToDo, UpdateToDo
 
 
 class ToolInput(BaseModel):
@@ -25,6 +27,12 @@ class ToDoInput(ToolInput):
 
 class ToDoIdInput(ToolInput):
     id: str = Field(description=ID_FIELD)
+
+
+class ToDoInputUpdate(ToolInput):
+    content: str | None = Field(description=CONTENT_FIELD_UPDATE)
+    open: bool | None = Field(description=OPEN_FIELD_UPDATE)
+    deadline_date: str | None = Field(description=DEADLINE_FIELD)
 
 
 @tool(args_schema=ToolInput)
@@ -44,7 +52,28 @@ async def read_all_todos(collection_name: str):
         return str(e)
 
 
-
+@tool(args_schema=ToDoInputUpdate)
+async def update_todo(
+        collection_name: str,
+        id: str,
+        content: str = None,
+        open: bool = None,
+        deadline_date: str = None
+):
+    """Useful to update a single to-do. Before calling this tool always call read_all_todos tool to get to-dos with
+    their ids. Never change retrieved to-dos ids"""
+    try:
+        repository = ToDoRepository(collection_name)
+        return await repository.update(
+            id,
+            UpdateToDo(
+                content=content,
+                open=open,
+                deadline_date=deadline_date
+            )
+        )
+    except Exception as e:
+        return str(e)
 
 
 @tool(args_schema=ToolInput)

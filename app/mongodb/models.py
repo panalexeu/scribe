@@ -21,6 +21,7 @@ class ToDo(BaseModel):
 class UpdateToDo(BaseModel):
     content: str | None = None
     open: bool | None = None
+    deadline_date: datetime | None = None
 
 
 class MongoToDo(ToDo, MongoModel):

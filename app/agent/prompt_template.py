@@ -41,4 +41,16 @@ the following format:
     * 3rd September, 2004 6:15 PM GMT => 2004-09-03T18:15:00Z
     * No deadline or deadline is unclear => provide nothing'''
 
-ID_FIELD = 'In this field an id of to-do should be provided without any changes'
+ID_FIELD = 'In this field always an id of to-do should be provided without any changes'
+
+CONTENT_FIELD_UPDATE = '''This field is optional. Provide nothing to this field if the user didn't mention anything
+about updating content. If the user provided a content, in this field content of to-do should be provided parsed from 
+the user input. Maximum content string size is 96 characters. If the user's content exceeds size in 96 characters, 
+summarize the user's input.'''
+
+OPEN_FIELD_UPDATE = '''This field is optional. Provide nothing to this field if the user didn't mention anything about 
+updating open status. If the user provided the open status, in this field the open status of the user's to-do task 
+should be provided in the following format:
+    * Task is open => "True"
+    * Task is closed or not open => "False"
+    * If the user didn't specify you any information about the task's status => "True"'''
