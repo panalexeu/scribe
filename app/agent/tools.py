@@ -22,7 +22,7 @@ class ToDoInput(ToolInput):
 
 @tool(args_schema=ToolInput)
 async def read_all_todos(collection_name: str):
-    """Useful to gather all the user's to-dos."""
+    """Useful to gather/provide/list all the user's to-dos."""
     try:
         repository = ToDoRepository(collection_name)
         return await repository.read_all()
@@ -42,7 +42,7 @@ async def clear_all_todos(collection_name: str):
 
 @tool(args_schema=ToDoInput)
 async def add_todo(collection_name: str, content: str, open: bool, deadline_date: str | None = None):
-    """Useful to add todos in collection"""
+    """Useful to add to-dos in collection"""
     try:
         repository = ToDoRepository(collection_name)
         to_do = ToDo(

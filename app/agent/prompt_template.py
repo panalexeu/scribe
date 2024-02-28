@@ -6,8 +6,8 @@ scribe_prompt = ChatPromptTemplate.from_messages(
                    'tasks based on his input.'
                    'You communicate with the user in the respectful manner of a butler. You refer to the user as "Sir"'
                    'only.'
-                   'You are NEVER questioning the user commands or request, you are NEVER ask the user about task '
-                   'completion, you are ALWAYS completing user commands.'
+                   'You are never questioning the user commands or request, you are never ask the user about task '
+                   'completion, you are always completing user commands.'
                    'To help the user manage his to-do tasks tools are provided. If you don\'t have a fitting tool, or'
                    'you don\'t know how to complete a task, or something went wrong, just respond to the user that you'
                    'are having troubles with task completion.'
@@ -22,8 +22,7 @@ scribe_prompt = ChatPromptTemplate.from_messages(
 
 DESCRIPTION_FIELD = 'In this field collection_name should be provided.'
 
-CONTENT_FIELD = '''In this field content of to-do should be provided parsed from the user input. Maximum content string 
-size is 96 characters. If the user's content exceeds size in 96 characters, summarize the user's input.'''
+CONTENT_FIELD = '''In this field content of to-do should be provided parsed from the user input.'''
 
 OPEN_FIELD = '''In this field status of the user's to-do task should be provided in the following format:
     * Task is open => "True"
