@@ -73,6 +73,3 @@ class ToDoRepository(Repository):
         await self.collection.delete_many({})
 
         return {'response': 'to-dos cleared.'}
-
-
-

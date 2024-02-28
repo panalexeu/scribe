@@ -19,3 +19,23 @@ scribe_prompt = ChatPromptTemplate.from_messages(
         MessagesPlaceholder(variable_name='agent_scratchpad'),
     ]
 )
+
+DESCRIPTION_FIELD = 'In this field collection_name should be provided.'
+
+CONTENT_FIELD = '''In this field content of to-do should be provided parsed from the user input. Maximum content string 
+size is 96 characters. If the user's content exceeds size in 96 characters, summarize the user's input.'''
+
+OPEN_FIELD = '''In this field status of the user's to-do task should be provided in the following format:
+    * Task is open => "True"
+    * Task is closed or not open => "False"
+    * If the user didn't specify you any information about the task's status => "True"'''
+
+DEADLINE_FIELD = '''In this field deadline date should be parsed from the user\'s input in the following format:
+    * 03.09.2004 => 2004-09-03
+    * September 3 2004 => 2004-09-03
+    * 03/09/2004 18 o'clock => 2004-09-03T18:00:00
+    * September 3rd, 2004 at 6:30 PM => 2004-09-03T18:30:00
+    * 03-09-2004 13:45 => 2004-09-03T13:45:00
+    * 3rd September, 2004 6:15 PM GMT => 2004-09-03T18:15:00Z
+If the user didn't mention any deadline date or from the user\'s input deadline time is unclear provide "None" in the 
+field.'''
