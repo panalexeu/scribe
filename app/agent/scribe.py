@@ -1,5 +1,6 @@
 from langchain_openai import ChatOpenAI
 from langchain.agents import AgentExecutor, create_openai_functions_agent
+from langchain.callbacks import StreamingStdOutCallbackHandler
 
 from .prompt_template import scribe_prompt
 from .tools import (
@@ -18,7 +19,8 @@ class Scribe:
         # self.collection_name = collection_name
         self.llm = ChatOpenAI(
             model='gpt-3.5-turbo',
-            temperature=0.1
+            temperature=0.1,
+            callbacks=[StreamingStdOutCallbackHandler()]
         )
         self.prompt = scribe_prompt
         self.tools = [

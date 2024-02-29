@@ -29,7 +29,7 @@ class Repository(ABC):
                 check_exists=True,
                 capped=True,
                 max=16,
-                size=6000  # in bytes
+                size=4000  # in bytes
             )
         except CollectionInvalid:
             pass
