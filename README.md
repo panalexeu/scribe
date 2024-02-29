@@ -22,11 +22,10 @@ To host the `Scribe` API serverlessly on `AWS`, the package of choice was:
 
 ## Architecture
 
-Scribe consists of three microservices:
+Scribe consists of two services:
 
-* Authentication microservice;
-* CRUD microservice for tasks in DB handling;
-* LLM interaction microservice for communication between the user and LLM.
+* CRUD service for tasks in DB handling;
+* LLM interaction service for communication between the user and LLM.
 
 ## LLM implementation
 
