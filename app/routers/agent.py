@@ -1,11 +1,21 @@
+from contextlib import asynccontextmanager
 from typing import Annotated
 
-from fastapi import APIRouter, Depends
+from dotenv import load_dotenv
+from fastapi import APIRouter, Depends, FastAPI
 
 from ..agent import Prompt, Scribe
 
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    load_dotenv()
+    yield
+
+
 router = APIRouter(
-    prefix='/scribe'
+    prefix='/scribe',
+    lifespan=lifespan
 )
 
 

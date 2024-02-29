@@ -1,6 +1,8 @@
+from contextlib import asynccontextmanager
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, status
+from dotenv import load_dotenv
+from fastapi import APIRouter, Depends, status, FastAPI
 from ..mongodb import (
     ToDoRepository,
     ToDo,
@@ -13,6 +15,12 @@ from ..mongodb import (
 router = APIRouter(
     prefix='/to-do'
 )
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    load_dotenv()
+    yield
 
 
 @router.post(
