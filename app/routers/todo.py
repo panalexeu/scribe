@@ -12,15 +12,16 @@ from ..mongodb import (
     PyObjectId
 )
 
-router = APIRouter(
-    prefix='/to-do'
-)
-
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     load_dotenv()
     yield
+
+router = APIRouter(
+    prefix='/to-do',
+    lifespan=lifespan
+)
 
 
 @router.post(

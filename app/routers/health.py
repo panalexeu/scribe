@@ -1,9 +1,20 @@
-from fastapi import APIRouter
+from contextlib import asynccontextmanager
+
+from dotenv import load_dotenv
+from fastapi import APIRouter, FastAPI
 
 from ..mongodb import ping_server
 
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    load_dotenv()
+    yield
+
+
 router = APIRouter(
-    prefix='/health'
+    prefix='/health',
+    lifespan=lifespan
 )
 
 
