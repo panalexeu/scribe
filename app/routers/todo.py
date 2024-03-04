@@ -24,9 +24,7 @@ router = APIRouter(
 )
 
 
-@router.post(
-    path='/create',
-    status_code=status.HTTP_201_CREATED
+@router.post(path='/create', status_code=status.HTTP_201_CREATED
 )
 async def todo_create(todo: ToDo, repository: Annotated[ToDoRepository, Depends()]) -> MongoToDo:
     return await repository.create(todo)
@@ -48,15 +46,11 @@ async def todo_update(item_id: PyObjectId, todo: UpdateToDo,
     return await repository.update(item_id, todo)
 
 
-@router.delete(
-    path='/delete/{item_id}'
-)
+@router.delete(path='/delete/{item_id}')
 async def todo_delete(item_id: PyObjectId, repository: Annotated[ToDoRepository, Depends()]):
     return await repository.delete(item_id)
 
 
-@router.delete(
-    path='/delete-all'
-)
+@router.delete(path='/delete-all')
 async def todo_delete_all(repository: Annotated[ToDoRepository, Depends()]):
     return await repository.delete_all()
