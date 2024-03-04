@@ -24,8 +24,7 @@ router = APIRouter(
 )
 
 
-@router.post(path='/create', status_code=status.HTTP_201_CREATED
-)
+@router.post(path='/create', status_code=status.HTTP_201_CREATED)
 async def todo_create(todo: ToDo, repository: Annotated[ToDoRepository, Depends()]) -> MongoToDo:
     return await repository.create(todo)
 
